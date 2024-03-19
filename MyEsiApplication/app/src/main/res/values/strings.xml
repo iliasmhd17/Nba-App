@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">My Esi Application</string>
+    <string name="login_title">Connexion</string>
+    <string name="email_address">Adresse e-mail</string>
+    <string name="login_button">Connexion</string>
+</resources>
