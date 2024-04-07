@@ -3,4 +3,5 @@
     <string name="login_title">Connexion</string>
     <string name="email_address">Adresse e-mail</string>
     <string name="login_button">Connexion</string>
+    <string name="password">Mot de passe</string>
 </resources>

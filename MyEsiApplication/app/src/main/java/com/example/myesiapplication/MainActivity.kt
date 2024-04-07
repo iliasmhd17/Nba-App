@@ -1,5 +1,6 @@
 package com.example.myesiapplication
 
+import LogoImageWithBottomBar
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,7 +18,8 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 NavHost(navController = navController, startDestination = "loginPage") {
                     composable(AppScreen.LoginPage.route) { LoginPage(navController) }
-                    composable(AppScreen.ImagePage.route) { LogoImage() }
+                    composable(AppScreen.ImagePage.route) { LogoImageWithBottomBar(navController) }
+                    composable(AppScreen.AboutPage.route) { AboutPage(navController)}
                 }
             }
         }
