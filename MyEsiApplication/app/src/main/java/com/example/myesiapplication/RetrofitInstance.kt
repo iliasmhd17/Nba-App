@@ -1,13 +1,14 @@
 package com.example.myesiapplication
+
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
-    val api: AuthService by lazy {
+    val api: NbaService by lazy {
         Retrofit.Builder()
-            .baseUrl("https://dnsrivnxleeqdtbyhftv.supabase.co/")
+            .baseUrl("https://api.sportsdata.io/v3/nba/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(AuthService::class.java)
+            .create(NbaService::class.java)
     }
 }
