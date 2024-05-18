@@ -1,5 +1,6 @@
-package com.example.myesiapplication
+package com.example.myesiapplication.v1v2
 import androidx.compose.foundation.layout.*
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "681030157861",
+    "project_id": "nba-app-39300",
+    "storage_bucket": "nba-app-39300.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:681030157861:android:90625034746b3fb814a1cc",
+        "android_client_info": {
+          "package_name": "com.example.myesiapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWyLUjh_0lIiw7YbVv3KrYjHauZZ3YqE0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -2,22 +2,29 @@ package com.example.myesiapplication.games
 
 import android.app.DatePickerDialog
 import androidx.compose.ui.graphics.Color
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.TextFieldDefaults
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.Card
-import androidx.compose.material.ContentAlpha
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.Icon
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.MaterialTheme
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.OutlinedTextField
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.Text
+//noinspection UsingMaterialAndMaterial3Libraries
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.runtime.*
@@ -26,46 +33,62 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
-import com.example.myesiapplication.GameViewModel
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberImagePainter
 import com.example.myesiapplication.R
 import com.example.myesiapplication.data.Game
 import com.example.myesiapplication.data.TeamLogo
-import com.example.myesiapplication.home.HomeTopBar
+import com.example.myesiapplication.ui.theme.BLUE
+import com.example.myesiapplication.ui.theme.NBA_RED
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
-import java.time.ZoneOffset
-import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.Locale
 
+
+
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun GameScreenBackground(navController: NavController) {
+fun GameScreenBackground() {
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
-            painter = painterResource(id = R.drawable.background),
+            painter = painterResource(id = R.drawable.dar),
             contentDescription = "Background",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
-        GamesScreen(navController)
+        GamesScreen()
     }
 }
-
+@Composable
+fun PageTopBar(){
+    TopAppBar(
+        title = {
+            Box(modifier = Modifier
+                .fillMaxSize()
+                .padding(start = 0.dp), contentAlignment = Alignment.Center) {
+                Image(
+                    painter = painterResource(id = R.drawable.topbar_logo),
+                    contentDescription = "NBA Logo",
+                    modifier = Modifier.height(40.dp)
+                )
+            }
+        },
+        backgroundColor = NBA_RED,
+        contentColor = Color.White
+    )
+}
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun GamesScreen(navController: NavController, gameViewModel: GameViewModel = viewModel()) {
+fun GamesScreen(gameViewModel: GameViewModel = viewModel()) {
     val games by gameViewModel.games.collectAsState()
     val selectedDate by gameViewModel.selectedDate.collectAsState()
     val context = LocalContext.current
-
     var showDatePicker by remember { mutableStateOf(false) }
 
     if (showDatePicker) {
@@ -80,10 +103,12 @@ fun GamesScreen(navController: NavController, gameViewModel: GameViewModel = vie
         }, year, month, day).show()
     }
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        HomeTopBar(onLoginClick = {
-            navController.navigateUp()  // pour l'instant le menu principale.
-        })
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+
+    ) {
+        PageTopBar()
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -97,7 +122,7 @@ fun GamesScreen(navController: NavController, gameViewModel: GameViewModel = vie
                 modifier = Modifier
                     .clickable { showDatePicker = true }
                     .padding(8.dp),
-                tint = Color.Red
+                tint = NBA_RED
 
             )
             OutlinedTextField(
@@ -126,6 +151,7 @@ fun GamesScreen(navController: NavController, gameViewModel: GameViewModel = vie
 
 
 
+@OptIn(ExperimentalCoilApi::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun GameItem(game: Game) {
@@ -133,9 +159,11 @@ fun GameItem(game: Game) {
         modifier = Modifier
             .padding(8.dp)
             .fillMaxWidth()
-            .clickable { /* Handle click here */ },
-        elevation = 4.dp,
-        shape = RoundedCornerShape(8.dp)
+            .border(2.dp, Color.White, RoundedCornerShape(8.dp)),
+    elevation = 4.dp,
+        shape = RoundedCornerShape(8.dp),
+        backgroundColor = BLUE
+
     ) {
         Column(
             modifier = Modifier
@@ -156,13 +184,13 @@ fun GameItem(game: Game) {
                 Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         text = "${game.AwayTeam} : ${game.AwayTeamScore}",
-                        color = Color.Black,
+                        color = Color.White,
                         style = MaterialTheme.typography.body2.copy(fontWeight = FontWeight.Bold)
                     )
                     Spacer(modifier = Modifier.weight(1f))
                     Text(
                         text = "${game.HomeTeam} : ${game.HomeTeamScore}",
-                        color = Color.Black,
+                        color = Color.White,
                         style = MaterialTheme.typography.body2.copy(fontWeight = FontWeight.Bold)
                     )
                 }
@@ -170,7 +198,7 @@ fun GameItem(game: Game) {
 
             Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 Image(
-                    painter = painterResource(id = awayTeamLogo),
+                    painter = rememberImagePainter(awayTeamLogo),
                     contentDescription = "Logo ${game.AwayTeam}",
                     modifier = Modifier
                         .size(70.dp)
@@ -179,7 +207,7 @@ fun GameItem(game: Game) {
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 Image(
-                    painter = painterResource(id = homeTeamLogo),
+                    painter = rememberImagePainter(homeTeamLogo),
                     contentDescription = "Logo ${game.HomeTeam}",
                     modifier = Modifier
                         .size(70.dp)
@@ -189,7 +217,7 @@ fun GameItem(game: Game) {
             Text(
                 text = formatGameTime(game.DateTime),
                 style = MaterialTheme.typography.body2.copy(fontWeight = FontWeight.Bold),
-                color = Color.Black
+                color = Color.White
             )
         }
     }
@@ -206,7 +234,9 @@ fun formatGameTime(dateTime: String?): String {
         val utcDateTime = LocalDateTime.parse(dateTime, formatter)
         val zonedUtcDateTime = utcDateTime.atZone(ZoneId.of("UTC"))
         val brusselsDateTime = zonedUtcDateTime.withZoneSameInstant(ZoneId.of("Europe/Brussels"))
-        brusselsDateTime.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT))
+        val adjustedDateTime = brusselsDateTime.plusHours(4)
+
+        adjustedDateTime.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT))
     } catch (e: Exception) {
         e.printStackTrace()
         "Invalid date format"
