@@ -1,10 +1,10 @@
 # Projet MOBG6
 
-Ce dépôt contient les sources du projet <My NBA APP>.
+Ce dépôt contient les sources du projet NBA APP.
 
 ## Description
 
-L'application permet d'avoir une seul application pour tout les fans de NBA voulant en apprendre d'avantage sur la ligue majeur de basket. L'utilisateur doit tout d'abord se connecter à l'application et sera redirigé vers la page d'accueil. Sur cette page, il y'a 3 contenus: les équipes avec leurs stats les joueurs avec leurs détails également et les matchs à venir ou passées!
+L'application permet d'avoir une seul application pour tout les fans de NBA voulant en apprendre davantage sur la ligue majeur de basket. L'utilisateur doit tout d'abord se connecter à l'application et sera redirigé vers la page d'accueil. Sur cette page, il y'a 3 contenus: les équipes avec leurs détails les joueurs et les matchs à venir ou passées!
 
 ## Persistance des données
 
